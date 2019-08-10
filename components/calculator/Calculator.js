@@ -18,7 +18,7 @@ import {
 } from 'native-base';
 
 import   {TouchableOpacity} from 'react-native'
-import appStore from '../mobx/store'
+import appStore from './mobx/store'
 
 import {
   StyleSheet,
@@ -26,9 +26,9 @@ import {
 
 import { observer } from "mobx-react"
 
-import AppFooter from './Layout/AppFooter'
-import History from './History';
-import SideBar from './Layout/SideBar';
+// import AppFooter from './Layout/AppFooter'
+// import History from './History';
+// import SideBar from './Layout/SideBar';
 
 
 let rows = [0,1,2,3,4];
@@ -125,10 +125,10 @@ const styles = StyleSheet.create({
           {rowsView}
         </View>
         </Content>) : (<Content contentContainerStyle={styles.container}>
-          <History></History>
+          {/* <History></History> */}
         </Content>)}
   
-  <AppFooter></AppFooter>
+  {/* <AppFooter></AppFooter> */}
 
       
 
