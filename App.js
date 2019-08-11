@@ -20,9 +20,11 @@ import CustomNavBarView from './components/CustomNavBarView';
 import CustomNavBar from './components/CustomNavBar';
 import CustomNavBar2 from './components/CustomNavBar2';
 
+import { Icon } from 'native-base'
 
 import Calculator from './components/calculator/Calculator';
 import Converter from './components/calculator/Converter';
+import History from './components/calculator/History';
 
 const styles = StyleSheet.create({
   container: {
@@ -96,6 +98,8 @@ const Example = () => (
                       }}
                       contentComponent={DrawerContent}
                       drawerImage={MenuIcon}
+                      // drawerIcon={<Icon name='home' />}
+                      
                       drawerWidth={300}
                     >
                       {/*
@@ -114,10 +118,9 @@ const Example = () => (
                              navigationBarStyle={{ backgroundColor: 'green' }}
                              titleStyle={{ color: 'white', alignSelf: 'center' }}
                           >
-                              <Scene  key="tab_1_1"  component={Calculator} title="Tab #1_1" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
-
-                              <Scene  key="tab_1_2" component={Converter} title="Tab #1_2" titleStyle={{ color: 'black', alignSelf: 'center' }} />
-                          
+                              <Scene  key="tab_1_1"  component={Calculator} title="Calculator" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
+                              <Scene  key="tab_1_2" component={Converter} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="tab_1_3" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           </Stack>
 
                           {/* <Stack key="tab_2" title="Tab #2" icon={TabIcon} initial>

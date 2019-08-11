@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import appStore from '../mobx/store'
+import appStore from './mobx/store'
 
 import { observer } from "mobx-react"
 
