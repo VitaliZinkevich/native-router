@@ -21,13 +21,13 @@ import {
   
   } from 'native-base';
 
-import AppHeader from './Layout/AppHeader'
+// import AppHeader from './Layout/AppHeader'
 
-import converterStore from '../mobx/converterStore'
+import converterStore from './mobx/converterStore'
 
 
 import { Actions } from 'react-native-router-flux';
-import SideBar from './Layout/SideBar';
+// import SideBar from './Layout/SideBar';
 
 
 const Converter = observer ( () => {
@@ -49,16 +49,12 @@ const Converter = observer ( () => {
         return (
             
             <Container>
-                <AppHeader/>
+                {/* <AppHeader/> */}
                 <Content>
                     {/* <SideBar></SideBar> */}
                     {inputs}
                     <Text>{JSON.stringify(values)}</Text>
-                    <Button onPress={()=>{
-                        
-                        Actions.calc()
-                        
-                        }}><Text>Calc</Text></Button>
+
                 </Content>
             </Container>
                 

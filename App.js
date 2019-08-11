@@ -22,6 +22,7 @@ import CustomNavBar2 from './components/CustomNavBar2';
 
 
 import Calculator from './components/calculator/Calculator';
+import Converter from './components/calculator/Converter';
 
 const styles = StyleSheet.create({
   container: {
@@ -115,7 +116,7 @@ const Example = () => (
                           >
                               <Scene  key="tab_1_1"  component={Calculator} title="Tab #1_1" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
 
-                              <Scene  key="tab_1_2" component={Launch} title="Tab #1_2" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="tab_1_2" component={Converter} title="Tab #1_2" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           
                           </Stack>
 
