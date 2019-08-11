@@ -18,7 +18,7 @@ import {
 } from 'native-base';
 
 import   {TouchableOpacity} from 'react-native'
-import appStore from './mobx/store'
+import calculatorStore from './mobx/calculatorStore'
 
 import {
   StyleSheet,
@@ -30,16 +30,9 @@ import { observer } from "mobx-react"
 // import History from './History';
 // import SideBar from './Layout/SideBar';
 
+import buttons from './buttons'
 
 let rows = [0,1,2,3,4];
-
-  
-let buttons = ["C","<-","MC","MR",
-"1","2","3","+",
-"4","5","6","-",
-"7","8","9","*",
-".","0","+/-","="];
-
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +68,7 @@ const styles = StyleSheet.create({
 });
   const Calculator = observer (()=>{
 
-  const store = useContext(appStore);
+  const store = useContext(calculatorStore);
   
   let buttonsCopy = [...buttons];
 
@@ -103,36 +96,27 @@ const styles = StyleSheet.create({
   });
 
   return (
-      <Content>
-        {/* <SideBar>
-
-
-        </SideBar> */}
-        {store.currentScren === 'calc' ? (<Content contentContainerStyle={styles.container}>
-        <View style={styles.actionView}>
-          <Text style={{fontSize: 15, /*fontWeight: 400*/}}>
-            {store.action}
-          </Text>
-          <Text style={{fontSize: 15, color: 'red'}}>
-            {store.answer}
-          </Text>
-        </View>
-        <Text>
-          {/* kanye west quote:{store.quote.quote}  */}
-          {JSON.stringify (store)}
-        </Text>
-        <View style={styles.buttonsView}>
-          {rowsView}
-        </View>
-        </Content>) : (<Content contentContainerStyle={styles.container}>
-          {/* <History></History> */}
-        </Content>)}
-  
-  {/* <AppFooter></AppFooter> */}
-
       
 
-      </Content>
+        <Content contentContainerStyle={styles.container}>
+          <View style={styles.actionView}>
+            <Text style={{fontSize: 15, /*fontWeight: 400*/}}>
+              {store.action}
+            </Text>
+            <Text style={{fontSize: 15, color: 'red'}}>
+              {store.answer}
+            </Text>
+          </View>
+          <Text>
+            {/* kanye west quote:{store.quote.quote}  */}
+            {JSON.stringify (store)}
+          </Text>
+          <View style={styles.buttonsView}>
+            {rowsView}
+          </View>
+        </Content> 
+  
+
    
    );
 });

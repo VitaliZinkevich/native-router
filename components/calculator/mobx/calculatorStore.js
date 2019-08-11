@@ -2,13 +2,10 @@ import { createContext } from 'react'
 import { decorate, observable, action} from 'mobx'
 import { task } from 'mobx-task'
 
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
+import buttons from '../buttons'
 
-let buttonsText = ["C","<-","MC","MR",
-                    "1","2","3","+",
-                    "4","5","6","-",
-                    "7","8","9","*",
-                    ".","0","+/-","="];
+let buttonsText = buttons;
                     
 import {configure} from "mobx"
 //configurWe({enforceActions: 'always'})

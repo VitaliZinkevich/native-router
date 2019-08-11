@@ -113,14 +113,14 @@ const Example = () => (
                             title="Tab #1"
                             tabBarLabel="TAB #1"
                             inactiveBackgroundColor="#FFF"
-                             activeBackgroundColor="#DDD"
-                             icon={TabIcon}
-                             navigationBarStyle={{ backgroundColor: 'green' }}
-                             titleStyle={{ color: 'white', alignSelf: 'center' }}
+                            activeBackgroundColor="#DDD"
+                            icon={TabIcon}
+                            // navigationBarStyle={{ backgroundColor: 'green' }}
+                            titleStyle={{ color: 'white', alignSelf: 'center' }}
                           >
-                              <Scene  key="tab_1_1"  component={Calculator} title="Calculator" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
-                              <Scene  key="tab_1_2" component={Converter} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
-                              <Scene  key="tab_1_3" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="calculator"  component={Calculator} title="Calculator" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
+                              <Scene  key="converter" component={Converter} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="history" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           </Stack>
 
                           {/* <Stack key="tab_2" title="Tab #2" icon={TabIcon} initial>

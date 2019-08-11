@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
+import { StyleSheet, Text, View, ViewPropTypes, TouchableOpacity } from 'react-native';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     borderWidth: 2,
-    borderColor: 'green',
+    // borderColor: 'skyblue',
   },
 });
 
@@ -31,10 +31,10 @@ class DrawerContent extends React.Component {
     return (
       <View style={styles.container}>
         {/* <Button onPress={Actions.closeDrawer}>Back</Button> */}
-        <Button onPress={Actions.tab_1_1}>Calculator</Button>
-        <Button onPress={Actions.tab_1_2}>Converter</Button>
-        <Button onPress={Actions.tab_1_3}>History</Button>
-        <Button onPress={Actions.drawerClose}>Close</Button>
+        <TouchableOpacity onPress={Actions.calculator}><Text>Calculator</Text></TouchableOpacity>
+        <TouchableOpacity onPress={Actions.converter}><Text>Converter</Text></TouchableOpacity>
+        <TouchableOpacity onPress={Actions.history}><Text>History</Text></TouchableOpacity>
+        <TouchableOpacity onPress={Actions.drawerClose}><Text>Close</Text></TouchableOpacity>
         {/* <Button onPress={Actions.tab_1}>Switch to tab1</Button>
         <Button onPress={Actions.tab_2}>Switch to tab2</Button>
         <Button onPress={Actions.tab_3}>Switch to tab3</Button>

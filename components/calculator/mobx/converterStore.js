@@ -14,6 +14,7 @@ class ConverterStore  {
   @observable values = [
     100, 400, 900
     ]
+  @observable rates = {};
 
   @action onValueChange = (val, index)=>{
       this.values[index]= val;
@@ -23,12 +24,16 @@ class ConverterStore  {
     console.log(event, index);
     this.values[index] = event;
   }
-  
+  @task getRates = async () => {
+    await fetch('https://api.exchangeratesapi.io/latest')
+      .then(r => r.json())
+      .then(action(response => this.rates = response))
+  };
 
 }
 
 let converterStore = new ConverterStore();
-
+converterStore.getRates();
 //AsyncStorage.clear()
 
 export default createContext (converterStore);

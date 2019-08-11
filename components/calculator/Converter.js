@@ -32,7 +32,7 @@ import { Actions } from 'react-native-router-flux';
 
 const Converter = observer ( () => {
 
-        let {values, onValueChange, onTextCange} = useContext(converterStore);
+        let {values, rates, onValueChange, onTextCange} = useContext(converterStore);
         values
         let inputCount = [0, 1, 2];
         let inputs = inputCount.map(inputNumber => (
@@ -48,15 +48,15 @@ const Converter = observer ( () => {
             console.log(Actions)
         return (
             
-            <Container>
-                {/* <AppHeader/> */}
+            
+               
                 <Content>
                     {/* <SideBar></SideBar> */}
                     {inputs}
+                    <Text>{JSON.stringify(rates)}</Text>
                     <Text>{JSON.stringify(values)}</Text>
-
                 </Content>
-            </Container>
+            
                 
 
             

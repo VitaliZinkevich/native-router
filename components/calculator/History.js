@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import appStore from './mobx/store'
+import calculatorStore from './mobx/calculatorStore'
 
 import { observer } from "mobx-react"
 
@@ -20,7 +20,7 @@ import {
     } from 'native-base';
 
 const History = observer(() => {
-    const { operations } = useContext(appStore);
+    const { operations } = useContext(calculatorStore);
         return (
         <View>
             <Text>History</Text>
