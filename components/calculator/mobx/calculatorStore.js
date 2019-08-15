@@ -13,7 +13,7 @@ import {configure} from "mobx"
 
 class Store  {
 
-  currentScren ='calc'
+  currentScren = 'calc'
   
   changeCurrentScren =  (screen) => {
    if (screen === 'calc') {

@@ -52,9 +52,10 @@ const Converter = observer ( () => {
                
                 <Content>
                     {/* <SideBar></SideBar> */}
-                    {inputs}
+                    {/* {inputs}
                     <Text>{JSON.stringify(rates)}</Text>
-                    <Text>{JSON.stringify(values)}</Text>
+                    <Text>{JSON.stringify(values)}</Text> */}
+                    <Text>converter</Text>
                 </Content>
             
                 

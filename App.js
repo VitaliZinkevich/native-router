@@ -25,6 +25,7 @@ import { Icon } from 'native-base'
 import Calculator from './components/calculator/Calculator';
 import Converter from './components/calculator/Converter';
 import History from './components/calculator/History';
+import Converter2 from './components/calculator/Converter2'
 
 const styles = StyleSheet.create({
   container: {
@@ -119,7 +120,7 @@ const Example = () => (
                             titleStyle={{ color: 'white', alignSelf: 'center' }}
                           >
                               <Scene  key="calculator"  component={Calculator} title="Calculator" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
-                              <Scene  key="converter" component={Converter} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="converter" component={Converter2} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                               <Scene  key="history" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           </Stack>
 
