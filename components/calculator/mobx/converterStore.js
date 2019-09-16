@@ -5,41 +5,72 @@ import { task } from 'mobx-task'
 import {AsyncStorage} from 'react-native';
 
 import {configure} from "mobx"
+
 //configure({enforceActions: 'always'})
 //configure({ enforceActions: "observed" })
 
+// инпут добавления валют
+// значения всех инпутов
+// активный инпут 
 
+// добавленные валюты
+// usd eur byn rub
 class ConverterStore  {
 
-   values = [
-    100, 400, 900
-    ]
-   rates = {};
-
-   onValueChange = (val, index)=>{
-      this.values[index]= val;
+  inputs = [];
+  activeInputs = [];
+  ratesKeys = [];
+  rates = [];
+  base = '';
+  date = '';
+  
+  makeInputs = (currencies)=>{
+    let inputs = [];
+    let baseIndex = null;
+    let activeItem = null;
+    for (let i = 0; i < currencies.length; i++ ) {
+      if (currencies[i] === 'USD'){
+        activeItem = {input: 1, select: currencies[i], active: true}
+        inputs.push ( activeItem );
+        baseIndex = i;
+      }
+      inputs.push ({input: this.rates[currencies[i]], select: currencies[i], active: false})
+    }
+    inputs.splice (baseIndex, 1);
+    inputs.unshift (activeItem);
+    this.inputs = inputs;
+    this.activeInputs = inputs.slice(0, 3);
   }
 
-   onTextCange = (event, index)=>{
-    console.log(event, index);
-    this.values[index] = event;
-  }
-   getRates = async () => {
-    await fetch('https://api.exchangeratesapi.io/latest')
+  getRates = async () => {
+    await fetch('https://api.exchangeratesapi.io/latest?base=USD')
       .then(r => r.json())
-      .then(action(response => this.rates = response))
+      .then(action(response => {
+        this.ratesKeys = Object.keys (response.rates);
+        this.rates = response.rates;
+        this.date = response.date;
+
+        this.makeInputs (Object.keys (response.rates)/*JSON.parse(JSON.stringify(this.ratesKeys))*/);
+      }))
   };
+
+  changeInput =(text)=>{
+    console.log(text)
+  }
 
 }
 
 decorate(ConverterStore, {
-  values: observable,
-  rates: observable,
 
-  
-  onTextCange: action,
-  onValueChange: action,
-  getRates:action
+  inputs : observable,
+  activeInputs : observable,
+  ratesKeys : observable,
+  rates : observable,
+  base : observable,
+  date : observable,
+
+  getRates : action,
+  changeInput: action,
 });
 
 let converterStore = new ConverterStore();

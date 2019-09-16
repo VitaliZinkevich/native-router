@@ -120,7 +120,7 @@ const Example = () => (
                             titleStyle={{ color: 'white', alignSelf: 'center' }}
                           >
                               <Scene  key="calculator"  component={Calculator} title="Calculator" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
-                              <Scene  key="converter" component={Converter2} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="converter" initial component={Converter2} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                               <Scene  key="history" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           </Stack>
 
