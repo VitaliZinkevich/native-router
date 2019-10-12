@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     View,
     Text,
@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Picker,
     Button, 
-    TextInput
+    TextInput,
+    TouchableOpacity
 } from 'react-native';
 
 import { Formik, FieldArray, Form } from 'formik';
@@ -15,81 +16,95 @@ import FormikObserver from 'formik-observer';
 import converterStore from './mobx/converterStore'
 import { observer } from "mobx-react"
 
-let inputObj = {input: 1, select: "USD", active: true}
 
 let ConverterForm = (props)=>{
-  let { ratesKeys } = useContext (converterStore);
+  let {delInput, ratesKeys, changeInput } = useContext (converterStore);
  return (
-  <View>
-    <TextInput 
-      //  style={styles.text} 
+  <View style={props.inputObj.active ? {...styles.activeInput, ...styles.rate} : {...styles.rate}}>
+    <TextInput  
+      style={styles.text} 
       defaultValue={props.inputObj.input+''}
-      // onChangeText={(text)=>{inputObj.changeInput(text)}}
+      onChangeText={(val)=> changeInput ({value: val, input: props.inputObj})/*JSON.parse(JSON.stringify({value: val, input: props.inputObj})))*/}
       />
-
-    <Picker   
-          // onValueChange = {(value)=>{inputObj.changeInput( value )}}
+    <Picker
+        style={styles.select}    
+          onValueChange = {(val)=>{changeInput({value: val, input: props.inputObj, picker: true})/*changeInput(JSON.parse(JSON.stringify({value: val, input: props.inputObj})))*/}}
           selectedValue={props.inputObj.select+''}
           >
         {ratesKeys.map ((item, index) => {
             return <Picker.Item label = {item} value = {item} key={index}/>
         })}
     </Picker>
+      <TouchableOpacity style={styles.del} onPress={()=>{delInput(props.inputObj.select)}}><Text>X</Text></TouchableOpacity>
   </View> 
  );
 };
 
 const inputs = ()=>{
-  let { activeInputs } = useContext (converterStore);
-  let view = activeInputs.map((inp, index)=>{
-    return <ConverterForm key={index} inputObj={inp} />;
+  let { inputs } = useContext (converterStore);
+  let view = inputs.filter ((inp, index)=>{
+    return inp.added === true;
   })
+  let inpView= view.map ((el, i)=>{
+    return <ConverterForm key={i} inputObj={el}/>;
+  });
+  console.log('inputs')
   return (
     <View>
-      {view}
+      {inpView}
     </View>
   );
 };
 
+  const AddInput = ()=>{
+
+    let {ratesKeys, addNewCurrency } = useContext (converterStore);
+    return (
+      <View>
+        <Picker
+              selectedValue={''}
+              onValueChange = {(val)=>{addNewCurrency(val)}}
+              >
+                <Picker.Item label = {'Add currency'} value = {''} key={-1}/>
+            {ratesKeys.map ((item, index) => {
+                return <Picker.Item label = {item} value = {item} key={index}/>
+            })}
+        </Picker>
+      </View>
+    )
+  } 
+
 
  const Converter = observer  (() => {
     // let {ratesKeys, ratesValues, /*onValueChange, onTextCange*/} = useContext (converterStore);
+    console.log('Converter')
     return (
-      <View >
+      <View>
           {inputs()}
+          <AddInput/>
       </View>
 )});
 
 const styles = StyleSheet.create({
-  employee: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      paddingTop: 40,
-      padding: 5,
-      backgroundColor: '#FFFFFF'
+  activeInput:{
+    backgroundColor: 'grey',
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#cc2016'
   },
-  cover: {
-      flex: 1,
-      height: 150,
-      marginTop: 40,
-      resizeMode: 'contain'
+  text: {
+    flex:0.6,
   },
-  info: {
-      flex: 3,
-      flexDirection: 'column',
-      alignSelf: 'center',
-      padding: 20
+  select: {
+    flex:0.3,
   },
-  name: {
-      alignSelf: 'center',
-      marginBottom: 12,
-      fontSize: 16,
-      fontWeight: '700',
-      color: '#222222'
+  rate:{
+    flexDirection: 'row' ,
   },
-  fontBold: {
-      fontWeight: '700'
+  del:{
+    flex:0.1,
+    justifyContent:"center",
+    alignItems:"center",
   }
 });
 
