@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useRef, useEffect} from 'react';
 import {
     View,
     Text,
@@ -7,7 +7,9 @@ import {
     Picker,
     Button, 
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
+    Keyboard
 } from 'react-native';
 
 import { Formik, FieldArray, Form } from 'formik';
@@ -16,20 +18,27 @@ import FormikObserver from 'formik-observer';
 import converterStore from './mobx/converterStore'
 import { observer } from "mobx-react"
 
-
 let ConverterForm = (props)=>{
   let {delInput, ratesKeys, changeInput } = useContext (converterStore);
+  const inputEl = React.createRef();
+  console.log(props.inputObj.active, props.inputObj.select)
+  useEffect(() => {
+    if (!!props.inputObj.active) {
+      inputEl.current.focus();
+    }
+  }, [inputEl]);
  return (
   <View style={props.inputObj.active ? {...styles.activeInput, ...styles.rate} : {...styles.rate}}>
-    <TextInput  
+    <TextInput
+      ref={inputEl}
       style={styles.text} 
       defaultValue={props.inputObj.input+''}
-      onChangeText={(val)=> changeInput ({value: val, input: props.inputObj})/*JSON.parse(JSON.stringify({value: val, input: props.inputObj})))*/}
+      onChangeText={(val)=> {changeInput ({value: val, input: props.inputObj})}}
       />
     <Picker
         style={styles.select}    
-          onValueChange = {(val)=>{changeInput({value: val, input: props.inputObj, picker: true})/*changeInput(JSON.parse(JSON.stringify({value: val, input: props.inputObj})))*/}}
-          selectedValue={props.inputObj.select+''}
+          onValueChange = {(val)=>{changeInput({value: val, input: props.inputObj, picker: true})}}
+          selectedValue={props.inputObj.select}
           >
         {ratesKeys.map ((item, index) => {
             return <Picker.Item label = {item} value = {item} key={index}/>
@@ -76,13 +85,12 @@ const inputs = ()=>{
 
 
  const Converter = observer  (() => {
-    // let {ratesKeys, ratesValues, /*onValueChange, onTextCange*/} = useContext (converterStore);
     console.log('Converter')
     return (
-      <View>
+      <ScrollView>
           {inputs()}
           <AddInput/>
-      </View>
+      </ScrollView>
 )});
 
 const styles = StyleSheet.create({

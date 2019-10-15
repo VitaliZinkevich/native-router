@@ -101,8 +101,13 @@ class ConverterStore  {
         inpCopy[currActive].active = false;
       }
       inpCopy[currentInputIndex].active = true;
+
+      // inpCopy[currentInputIndex].autoFocus = true;
+      //inpCopy[currActive].autoFocus = false;
+
       inpCopy = this.countRates(inpCopy, inpCopy[currentInputIndex])
     }
+    
     this.inputs = inpCopy;
   }
 
