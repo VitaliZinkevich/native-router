@@ -26,6 +26,11 @@ import Calculator from './components/calculator/Calculator';
 import Converter from './components/calculator/Converter';
 import History from './components/calculator/History';
 import Converter2 from './components/calculator/Converter2'
+// import SwipeEvent fro./components/swipe-events-example'
+
+// import Swipeable from 'react-native-gesture-handler/Swipeable';
+// import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -87,7 +92,8 @@ const Example = () => (
                       <Scene key="register2" component={Register} title="Register2" />
                       <Scene key="home" component={Home} title="Replace" type={ActionConst.REPLACE} />
                     </Stack> */}
-
+                  {/* <Swipeable>  */}
+                  
                     <Drawer
                       hideNavBar
                       key="drawer"
@@ -139,6 +145,8 @@ const Example = () => (
                       
                       </Scene>
                     </Drawer>
+                  {/* </Swipeable> */}
+
                   </Stack>
 
                   <Scene key="demo_lightbox" component={DemoLightbox} />
