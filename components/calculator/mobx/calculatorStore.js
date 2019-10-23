@@ -8,32 +8,21 @@ import buttons from '../buttons'
 let buttonsText = buttons;
                     
 import {configure} from "mobx"
-//configurWe({enforceActions: 'always'})
-//configure({ enforceActions: "observed" })
+configure({ enforceActions: "observed" })
 
 class Store  {
-
-  currentScren = 'calc'
-  
-  changeCurrentScren =  (screen) => {
-   if (screen === 'calc') {
-    this.currentScren = 'calc'
-   } else {
-    this.currentScren = 'hist'
-   }
-  }
-
 
   action =  []
   answer = null
   quote =  ''
   operations= []
   debugger = undefined
+  resLast = false;
 
   getKennyQuote = task (async () => {
     await fetch('https://api.kanye.rest')
       .then(r => r.json())
-      .then(action(answer => this.quote = answer))
+      .then(answer => this.quote = answer)
   });
 
   storeData = async (key, item) => {
@@ -44,7 +33,7 @@ class Store  {
   }
 };
 
-retrieveData = async (key, item) => {
+retrieveData = (async (key, item) => {
   try {
     const value = await AsyncStorage.getItem(`${key}`);
     if (value) {
@@ -65,81 +54,79 @@ retrieveData = async (key, item) => {
       // no storage at all
   }
   
-};
+});
 
 
 
-  addOperation (row, i) {
-      let ind = !!row ? 
-      !!i ? 4*row+i : 4*row+i
-      : 
-      !!i ? 4*row+i : 4*row + i;
-      let action = buttonsText[ind];
+  addOperation = action ((row, i) => {
 
-      switch(action) {
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-        case '0':
-        case '.':
-        case '-':
-        case '+':
-        case '*':
-        case '/':
-          this.action.push(action);
-          break;
-        case '=':
-          let answer = eval (this.action.join(''));
-          this.operations.push(
-            {action: this.action, 
-              answer: answer, 
-              date: Date.now()})
-          
-          this.retrieveData('operations');
-          
-          this.action=[];
-          this.answer = answer;
-        break;
-        case 'C':
-            this.action = [];
-            this.answer = null;
-        break;
-        case '<-':
-            this.action.pop();
-        break;
-        case '+/-':
-            //this.action.unshift('-');
-        break;
-        default:
-          //console.log(this.action)
-          // code block
-      } 
+  if (this.resLast){
+    this.action = [];
+    this.resLast = false;
   }
 
+  let ind = !!row ? 
+  !!i ? 4*row+i : 4*row+i
+  : 
+  !!i ? 4*row+i : 4*row + i;
+  let action = buttonsText[ind];
+
+  switch(action) {
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+    case '0':
+    case '.':
+    case '-':
+    case '+':
+    case '*':
+    case '/':
+      this.action.push(action);
+      break;
+    case '=':
+      let answer = eval (this.action.join(''));
+      this.operations.push(
+        {action: this.action, 
+          answer: answer, 
+          date: Date.now()})
+      
+      this.retrieveData('operations');
+      
+      this.resLast = true;
+      this.answer = answer;
+    break;
+    case 'C':
+        this.action = [];
+        this.answer = null;
+    break;
+    case '<-':
+        this.action.pop();
+    break;
+    case '+/-':
+        //this.action.unshift('-');
+    break;
+    default:
+    }
+  })
 }
 
 decorate(Store, {
-  currentScren: observable,
   answer: observable,
   action: observable,
   quote: observable,
   operations: observable,
   debugger: observable,
-  
-  changeCurrentScren: action,
-  addOperation: action,
-  getKennyWestQuote:action
+
 });
 
 let appStore = new Store();
-appStore.getKennyQuote();
-//appStore.retrieveData('operations');
+appStore.retrieveData('operations');
 //AsyncStorage.clear()
 
 export default createContext (appStore);

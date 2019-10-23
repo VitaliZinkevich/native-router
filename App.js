@@ -23,14 +23,8 @@ import CustomNavBar2 from './components/CustomNavBar2';
 import { Icon } from 'native-base'
 
 import Calculator from './components/calculator/Calculator';
-import Converter from './components/calculator/Converter';
 import History from './components/calculator/History';
-import Converter2 from './components/calculator/Converter2'
-// import SwipeEvent fro./components/swipe-events-example'
-
-// import Swipeable from 'react-native-gesture-handler/Swipeable';
-// import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-
+import Converter from './components/calculator/Converter';
 
 const styles = StyleSheet.create({
   container: {
@@ -125,8 +119,8 @@ const Example = () => (
                             // navigationBarStyle={{ backgroundColor: 'green' }}
                             titleStyle={{ color: 'white', alignSelf: 'center' }}
                           >
-                              <Scene  key="calculator"  component={Calculator} title="Calculator" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
-                              <Scene  key="converter" initial component={Converter2} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="calculator" initial component={Calculator} title="Calculator" title="Converter" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
+                              <Scene  key="converter" component={Converter} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                               <Scene  key="history" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           </Stack>
 

@@ -6,8 +6,7 @@ import {AsyncStorage} from 'react-native';
 
 import {configure} from "mobx"
 
-//configure({enforceActions: 'always'})
-//configure({ enforceActions: "observed" })
+configure({ enforceActions: "observed" })
 
 class ConverterStore  {
 
@@ -67,7 +66,7 @@ class ConverterStore  {
     return array;
   }
 
-  changeInput =  ({value, input, picker}) => {
+  changeInput =  action (({value, input, picker}) => {
     let inpCopy = JSON.parse(JSON.stringify(this.inputs))
     if (picker) {
       let activeInputIndex = this.inputs.findIndex (el=>{
@@ -109,7 +108,7 @@ class ConverterStore  {
     }
     
     this.inputs = inpCopy;
-  }
+  })
 
   delInput =(currency)=>{
     
@@ -133,11 +132,10 @@ decorate(ConverterStore, {
   date : observable,
 
   getRates : action,
-  changeInput: action,
+  // changeInput: action,
 });
 
 let converterStore = new ConverterStore();
 converterStore.getRates();
-//AsyncStorage.clear()
 
 export default createContext (converterStore);

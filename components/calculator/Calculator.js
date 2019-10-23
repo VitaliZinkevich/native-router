@@ -1,20 +1,8 @@
 import React, { useContext } from 'react';
 import {
   View,
-  Title,
-  Container,
-  Header,
   Content,
-
-  Button,
   Text,
-  Left,
-  Icon,
-  Right,
-  Body,
-  Footer,
-  FooterTab
-
 } from 'native-base';
 
 import   {TouchableOpacity} from 'react-native'
@@ -25,10 +13,6 @@ import {
 } from 'react-native';
 
 import { observer } from "mobx-react"
-
-// import AppFooter from './Layout/AppFooter'
-// import History from './History';
-// import SideBar from './Layout/SideBar';
 
 import buttons from './buttons'
 
@@ -100,17 +84,13 @@ const styles = StyleSheet.create({
 
         <Content contentContainerStyle={styles.container}>
           <View style={styles.actionView}>
-            <Text style={{fontSize: 15, /*fontWeight: 400*/}}>
+            <Text style={{fontSize: 25}}>
               {store.action}
             </Text>
-            <Text style={{fontSize: 15, color: 'red'}}>
+            <Text style={{fontSize: 35, color: 'black'}}>
               {store.answer}
             </Text>
           </View>
-          <Text>
-            {/* kanye west quote:{store.quote.quote}  */}
-            {JSON.stringify (store)}
-          </Text>
           <View style={styles.buttonsView}>
             {rowsView}
           </View>
