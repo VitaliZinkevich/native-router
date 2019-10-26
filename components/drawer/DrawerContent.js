@@ -5,16 +5,22 @@ import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { green } from 'ansi-colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: 'transparent',
     borderWidth: 2,
-    // borderColor: 'skyblue',
   },
+  text: {
+    fontSize: 24
+  },
+  button: {
+    alignSelf: 'stretch',
+  }
 });
 
 class DrawerContent extends React.Component {
@@ -46,10 +52,10 @@ class DrawerContent extends React.Component {
         <View style={styles.container}>
           
           {/* <Button onPress={Actions.closeDrawer}>Back</Button> */}
-          <TouchableOpacity onPress={Actions.calculator}><Text>Calculator</Text></TouchableOpacity>
-          <TouchableOpacity onPress={Actions.converter}><Text>Converter</Text></TouchableOpacity>
-          <TouchableOpacity onPress={Actions.history}><Text>History</Text></TouchableOpacity>
-          <TouchableOpacity onPress={Actions.drawerClose}><Text>Close</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={Actions.calculator}><Text style={styles.text}>Calculator</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={Actions.converter}><Text style={styles.text}>Converter</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={Actions.history}><Text style={styles.text}>History</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={Actions.drawerClose}><Text style={styles.text}>Close</Text></TouchableOpacity>
           {/* <Button onPress={Actions.tab_1}>Switch to tab1</Button>
           <Button onPress={Actions.tab_2}>Switch to tab2</Button>
           <Button onPress={Actions.tab_3}>Switch to tab3</Button>

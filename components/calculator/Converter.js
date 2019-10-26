@@ -31,6 +31,7 @@ let ConverterForm = (props)=>{
   <View style={props.inputObj.active ? {...styles.activeInput, ...styles.rate} : {...styles.rate}}>
     <TextInput
       ref={inputEl}
+      keyboardType='numeric'
       style={styles.text} 
       defaultValue={props.inputObj.input+''}
       onChangeText={(val)=> {changeInput ({value: val, input: props.inputObj})}}
