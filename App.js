@@ -26,6 +26,8 @@ import Calculator from './components/calculator/Calculator';
 import History from './components/calculator/History';
 import Converter from './components/calculator/Converter';
 
+import Exchange from './components/calculator/exchange/Exchange'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -119,9 +121,10 @@ const Example = () => (
                             // navigationBarStyle={{ backgroundColor: 'green' }}
                             titleStyle={{ color: 'white', alignSelf: 'center' }}
                           >
-                              <Scene  key="calculator" initial component={Calculator} title="Calculator" title="Converter" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
+                              <Scene  key="calculator"  component={Calculator} title="Calculator" title="Converter" /*onRight={() => alert('Right button')} rightTitle="Right"*/ />
                               <Scene  key="converter" component={Converter} title="Converter" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                               <Scene  key="history" component={History} title="History" titleStyle={{ color: 'black', alignSelf: 'center' }} />
+                              <Scene  key="exchange" initial component={Exchange} title="Exchange Offices" titleStyle={{ color: 'black', alignSelf: 'center' }} />
                           </Stack>
 
                           {/* <Stack key="tab_2" title="Tab #2" icon={TabIcon} initial>
