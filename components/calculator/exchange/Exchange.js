@@ -19,7 +19,10 @@ import {
 // import { observer } from "mobx-react"
 
 import MapView from 'react-native-maps';
-import {PermissionsAndroid} from 'react-native';
+import { Marker } from 'react-native-maps';
+
+import { PermissionsAndroid } from 'react-native';
+
 
 async function requestCameraPermission() {
   try {
@@ -46,25 +49,56 @@ async function requestCameraPermission() {
 }
 
 let Exchange = (props)=>{
-  
+  let [coord, setCoord] = useState(null);
   useEffect(() => {
     requestCameraPermission();
   }, []);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((info)=>{
+      setCoord (info.coords);
+   },()=>{},
+   {enableHighAccuracy: true}
+);
+  })
+  const LoadingView = ()=>{
+    return <Text>'Loading'</Text>;
+  }
 
+  const MapViewView = (props)=>{
+    return (<MapView
+      style={styles.map}
+      initialRegion={{
+      latitude: props.latitude,
+      longitude: props.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+      }}
+  >
+  
+  </MapView>)
+  }
 
  return (
   <View  >
       {/* <Text>Exchange</Text> */}
-      <MapView
-        style={styles.map}
-        initialRegion={{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-        }}
+      {!!coord ?  (<MapView
+      style={styles.map}
+      initialRegion={{
+      latitude: coord.latitude,
+      longitude: coord.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+      }}
+  >
+  <Marker
+      coordinate={{
+        latitude: coord.latitude,
+        longitude: coord.longitude,
+      }}
+      title={'Vitali'}
+      description={'You are here'}
     />
-    
+  </MapView>) : <LoadingView />}
   </View> 
  );
 };
