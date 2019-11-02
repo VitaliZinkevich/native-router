@@ -1,5 +1,5 @@
 
-android\app\src\main\AndroidManifest.xml
+
 # OSX
 #
 .DS_Store
@@ -26,6 +26,7 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
+android/app/src/main/AndroidManifest.xml
 build/
 .idea
 .gradle
