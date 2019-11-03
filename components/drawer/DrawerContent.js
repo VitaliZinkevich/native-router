@@ -55,6 +55,7 @@ class DrawerContent extends React.Component {
           <TouchableOpacity style={styles.button} onPress={Actions.calculator}><Text style={styles.text}>Calculator</Text></TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={Actions.converter}><Text style={styles.text}>Converter</Text></TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={Actions.history}><Text style={styles.text}>History</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={Actions.exchange}><Text style={styles.text}>Exchange</Text></TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={Actions.drawerClose}><Text style={styles.text}>Close</Text></TouchableOpacity>
           {/* <Button onPress={Actions.tab_1}>Switch to tab1</Button>
           <Button onPress={Actions.tab_2}>Switch to tab2</Button>

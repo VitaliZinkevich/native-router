@@ -48,79 +48,79 @@ async function requestCameraPermission() {
   }
 }
 
-let Exchange = (props)=>{
-  let [coord, setCoord] = useState(null);
-  useEffect(() => {
-    requestCameraPermission();
-  }, []);
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((info)=>{
-      setCoord (info.coords);
-   },()=>{},
-   {enableHighAccuracy: true}
-);
-  })
-  const LoadingView = ()=>{
-    return <Text>'Loading'</Text>;
-  }
+const LoadingView = ()=>{
+  return <Text>'Loading'</Text>;
+}
 
-  const MapViewView = (props)=>{
-    return (<MapView
-      style={styles.map}
-      initialRegion={{
+const MarkersView = (props)=>{
+  let [watchCoord, setWatchCoord] = useState(null);
+  
+  useEffect(() => {
+    let watchID = navigator.geolocation.watchPosition((info)=>{
+      setWatchCoord (info.coords);
+   },(err)=>{console.log (err)},
+   {enableHighAccuracy: true}
+    );
+    
+  return () => {
+    navigator.geolocation.clearWatch(watchID)
+  } 
+}), [];
+  console.log('render MarkersView')
+  return ( <>
+    {watchCoord ? (<Marker
+    coordinate={{
+      latitude: watchCoord.latitude,
+      longitude: watchCoord.longitude,
+    }}
+    title={'Vitali'}
+    description={'You are here'}/>) : <Marker
+    coordinate={{
       latitude: props.latitude,
       longitude: props.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-      }}
-  >
-  
-  </MapView>)
-  }
+    }}
+    title={'Vitali'}
+    description={'You are here'}/>}
+    </>
+  )
+} 
 
- return (
-  <View  >
-      {/* <Text>Exchange</Text> */}
-      {!!coord ?  (<MapView
-      style={styles.map}
-      initialRegion={{
-      latitude: coord.latitude,
-      longitude: coord.longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-      }}
-  >
-  <Marker
-      coordinate={{
+const MapViewView = ()=>{
+  let [coord, setCoord] = useState(null);
+
+  useEffect (()=>{
+    navigator.geolocation.getCurrentPosition ((info)=>{
+      setCoord (info.coords);
+   },(err)=>{console.log (err)},
+   {enableHighAccuracy: true}
+    ); 
+  }, [])
+
+  console.log ('render MapViewView')
+  return (
+    <View  >
+        {/* <Text>Exchange</Text> */}
+        {coord ? (<MapView
+        style={styles.map}
+        initialRegion={{
         latitude: coord.latitude,
         longitude: coord.longitude,
-      }}
-      title={'Vitali'}
-      description={'You are here'}
-    />
-  </MapView>) : <LoadingView />}
-  </View> 
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+        }}
+    >
+    <MarkersView {...coord}/>
+    </MapView>) : (<LoadingView />)}
+  </View> )
+}
+
+let Exchange = ()=>{
+console.log('render Exchange')
+ return (<View >
+  <MapViewView /> 
+  </View>
  );
 };
-
-// const styles = StyleSheet.create({
-//     container: {
-//       position: 'absolute',
-//       top: 0,
-//       left: 0,
-//       right: 0,
-//       bottom: 0,
-//       justifyContent: 'flex-end',
-//       alignItems: 'center',
-//     },
-//     map: {
-//       position: 'absolute',
-//       top: 0,
-//       left: 0,
-//       right: 0,
-//       bottom: 0,
-//     },
-//   });
 
 const styles = StyleSheet.create({
   activeInput:{
