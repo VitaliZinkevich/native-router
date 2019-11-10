@@ -48,6 +48,8 @@ async function requestCameraPermission() {
   }
 }
 
+
+
 const LoadingView = ()=>{
   return <Text>'Loading'</Text>;
 }
@@ -85,8 +87,47 @@ const MarkersView = (props)=>{
   )
 } 
 
+
+// let getFillials = async () => {
+//   return await fetch('https://belarusbank.by/api/filials_info')
+//     .then(r => r.json())
+//     .then(response => {
+//      return response;
+//     })
+// };
+const MarkersFillials = (props)=>{
+  let view = null;
+  if (props.fillial) {
+    view = props.fillial
+  } else {
+    view = []
+  }
+  return (<>{props.fillial ? view.map(f =>{
+    return (
+      <Marker
+    coordinate={{
+      latitude: +f.GPS_X,
+      longitude: +f.GPS_Y,
+    }}
+    title={f.filial_name}
+    description={f.info_text}/>)
+  }): null}</>)
+}
+
 const MapViewView = ()=>{
   let [coord, setCoord] = useState(null);
+  let [fillial, setFilials] = useState(null);
+  
+  useEffect(()=>{
+    fetch('https://belarusbank.by/api/filials_info')
+    .then(r => r.json())
+    .then(response => {
+      setFilials (response);
+    })
+  },[])
+
+  
+  console.log(fillial)
 
   useEffect (()=>{
     navigator.geolocation.getCurrentPosition ((info)=>{
@@ -101,15 +142,39 @@ const MapViewView = ()=>{
     <View  >
         {/* <Text>Exchange</Text> */}
         {coord ? (<MapView
+        showsCompass={false}
+        showsUserLocation={true}
+        loadingEnabled={true}
+        // liteMode
         style={styles.map}
-        initialRegion={{
-        latitude: coord.latitude,
-        longitude: coord.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-        }}
+        // initialRegion={{
+        // latitude: coord.latitude,
+        // longitude: coord.longitude,
+        // latitudeDelta: 0.0922,
+        // longitudeDelta: 0.0421,
+        // }}
+        showsMyLocationButton={true}
+        // onRegionChangeComplete={(region)=>{console.log(region)}}
+        camera={{
+          center: {
+             latitude: coord.latitude,
+             longitude: coord.longitude,
+         },
+         pitch: 0,
+         heading: 11,
+         altitude: 10,
+         // Only when using Google Maps.
+         zoom: 15
+      }}
     >
-    <MarkersView {...coord}/>
+    {/* <MarkersView {...coord}/> */}
+    <MarkersFillials 
+      fillial={fillial} 
+      ownCoord={
+        {latitude: coord.latitude,
+        longitude: coord.longitude}}/>
+      
+
     </MapView>) : (<LoadingView />)}
   </View> )
 }
@@ -130,7 +195,9 @@ const styles = StyleSheet.create({
     color: '#cc2016'
   },
   map: {
-    height: 500
+    height: '100%',
+    width: '100%'
+    // flex: 1
   }
 });
 
